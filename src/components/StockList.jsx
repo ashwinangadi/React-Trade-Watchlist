@@ -1,10 +1,11 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import finnHub from '../apis/finnHub'
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs"
+import {WatchListContext} from '../context/watchListContext'
 
 const StockList = () => {
-  const [stock, setStock] = useState([])
-  const [watchList, setWatchList] = useState(["GOOGl","MSFT","AMZN"])
+  
+  const {watchList, stock, setStock} = useContext(WatchListContext)
 
   useEffect(()=>{
     let isMounted =true
@@ -25,13 +26,11 @@ const StockList = () => {
               symbol : item.config.params.symbol
           }
         })
-        //console.log(data)
         if(isMounted){
           setStock(data)
-          //console.log(stock)
         } 
       }catch (err) {
-        
+        console.log("error caught")
       }
     }
     fetchData();
