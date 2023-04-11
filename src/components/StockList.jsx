@@ -48,7 +48,7 @@ const StockList = () => {
   
   return( 
     <div >
-      <table className ="table-auto md:table-fixed mx-auto mt-2 w-[85%] text-center border-2 border-separate ">
+      <table className ="table-auto md:table-fixed mx-auto w-[85%] text-center border-2 border-separate ">
         <thead className="bg-blue-300">
           <tr>
             <th className="p-2">Symbol</th>
@@ -63,8 +63,8 @@ const StockList = () => {
         </thead>
         <tbody className="border-2 bg-blue-100 ">
           {stock.map(item => {
-            return(<tr className="table-row ">
-                    <th className="p-2 bg-blue-200">{item.symbol}</th>
+            return(<tr className="table-row cursor-pointer hover:bg-red-600 active:bg-blue-700 focus:ring-green-300">
+                    <th className="p-2">{item.symbol}</th>
                     <td>{item.data.c}</td>
                     <td className={`text-${changeColor(item.data.d)}`}>{item.data.d}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
                     <td className={`text-${changeColor(item.data.dp)}`}>{item.data.dp}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
