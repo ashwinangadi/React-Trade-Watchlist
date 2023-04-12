@@ -1,11 +1,14 @@
-import {useEffect, useState, useContext} from 'react'
+import {useEffect, useContext} from 'react'
+import { useNavigate } from 'react-router-dom'
 import finnHub from '../apis/finnHub'
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs"
 import {WatchListContext} from '../context/watchListContext'
+import {RiDeleteBin3Fill} from "react-icons/ri"
 
 const StockList = () => {
   
-  const {watchList, stock, setStock} = useContext(WatchListContext)
+  const {watchList, stock, setStock, deleteStock} = useContext(WatchListContext)
+  const navigate = useNavigate()
 
   useEffect(()=>{
     let isMounted =true
@@ -35,16 +38,20 @@ const StockList = () => {
     }
     fetchData();
     return () => (isMounted = false)
-  },[]);
+  },[watchList]);
 
   const changeColor=(change)=>{
-    return change > 0 ? "green-700": "red-700"
+    return change > 0 ? "text-green-700": "text-red-700"
   }
 
   const renderIcon=(change)=>{
     return change > 0 ? <BsFillCaretUpFill/>:<BsFillCaretDownFill/>
   }
-  
+
+  const handleStockSelect = (stck) => {
+    navigate(`detail/${stck}`)
+  }
+
   return( 
     <div >
       <table className ="table-auto md:table-fixed mx-auto w-[85%] text-center border-2 border-separate ">
@@ -58,19 +65,21 @@ const StockList = () => {
             <th>Low</th>
             <th>Open</th>
             <th>Close</th>
+            
           </tr>
         </thead>
         <tbody className="border-2 bg-blue-100 ">
           {stock.map(item => {
-            return(<tr className="table-row cursor-pointer hover:bg-red-600 active:bg-blue-700 focus:ring-green-300">
-                    <th className="p-2">{item.symbol}</th>
+            return(<tr className="table-row focus:ring-green-300">
+                    <th className="p-2 cursor-pointer hover:bg-red-600 active:bg-blue-700" onClick={()=> handleStockSelect(item.symbol)} >{item.symbol}</th>
                     <td>{item.data.c}</td>
-                    <td className={`text-${changeColor(item.data.d)}`}>{item.data.d}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
-                    <td className={`text-${changeColor(item.data.dp)}`}>{item.data.dp}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
+                    <td className={`${changeColor(item.data.d)}`}>{item.data.d}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
+                    <td className={`${changeColor(item.data.dp)}`}>{item.data.dp}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
                     <td>{item.data.h}</td>
                     <td>{item.data.l}</td>
                     <td>{item.data.o}</td>
-                    <td>{item.data.pc}</td>
+                    <td className="flex justify-around p-2">{item.data.pc}<button className=" z-10" onClick={deleteStock}><RiDeleteBin3Fill /></button></td>
+                    
                   </tr>)
           })}
         </tbody>

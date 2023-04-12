@@ -1,11 +1,13 @@
-import {useState,useEffect} from 'react'
+import {useEffect,useContext} from 'react'
 import {FaTimes} from "react-icons/fa"
 import finnHub from '../apis/finnHub'
+import { WatchListContext } from '../context/watchListContext'
 
 const AutoComplete = () => {
 
-  const[search,setSearch]=useState("");
-  const[results, setResults]=useState([])
+
+
+  const {results,setResults,search,setSearch,addStock} = useContext(WatchListContext)
 
   useEffect(()=>{
     let isMounted = true
@@ -49,8 +51,11 @@ const AutoComplete = () => {
       <div className={`${search.length <= 0 && "invisible"} absolute bg-white w-1/2 mt-11 z-10 overflow-y-auto h-48 rounded-lg`}>
         {results.map(item =>{
           return(
-            <ul className="flex justify-between cursor-pointer hover:bg-red-600 active:bg-blue-700 focus:ring-green-300 edit:translate-x-0.5" >
-              <li className="ml-1">{item.description}</li><li className="mr-1">({item.displaySymbol})</li>
+            <ul className="flex justify-between cursor-pointer hover:bg-red-600 active:bg-blue-700 focus:ring-green-300 edit:translate-x-0.5" onClick={()=>{
+              addStock(item.displaySymbol)
+              setSearch("")
+            }}>
+              <li className="ml-1">{item.description}</li><li  className="mr-1">{item.displaySymbol}</li>
             </ul>
           )
         })} 
