@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import finnHub from '../apis/finnHub'
 
-export const StockData = () => {
+export const StockData = ({symbol}) => {
 
   const [stockInfo, setStockInfo] = useState([])
   
@@ -10,7 +10,7 @@ export const StockData = () => {
     const fetchData = async ()=>{
       const response = await finnHub.get('/stock/profile2',{
         params:{
-          symbol : "aapl",
+          symbol : symbol,
           token : TOKEN
         }
       })
@@ -18,7 +18,7 @@ export const StockData = () => {
       setStockInfo(response.data)
     }
     fetchData()
-  },[])
+  },[stockInfo])
   
   return (
     <div className="grid grid-cols-4 gap-4 border-2 mb-5">
