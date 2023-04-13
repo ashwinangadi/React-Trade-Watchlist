@@ -70,15 +70,20 @@ const StockList = () => {
         </thead>
         <tbody className="border-2 bg-blue-100 ">
           {stock.map(item => {
-            return(<tr className="table-row focus:ring-green-300">
-                    <th className="p-2 cursor-pointer hover:bg-red-600 active:bg-blue-700" onClick={()=> handleStockSelect(item.symbol)} >{item.symbol}</th>
+            return(<tr className="table-row focus:ring-green-300 hover:bg-red-600 active:bg-blue-700" >
+                    <th className="p-2 cursor-pointer " onClick={()=> handleStockSelect(item.symbol)} >{item.symbol}</th>
                     <td>{item.data.c}</td>
                     <td className={`${changeColor(item.data.d)}`}>{item.data.d}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
                     <td className={`${changeColor(item.data.dp)}`}>{item.data.dp}<span className="inline-flex">{renderIcon(item.data.d)}</span></td>
                     <td>{item.data.h}</td>
                     <td>{item.data.l}</td>
                     <td>{item.data.o}</td>
-                    <td className="flex justify-around p-2">{item.data.pc}<button className=" z-10" onClick={deleteStock}><RiDeleteBin3Fill /></button></td>
+                    <td className="flex justify-around p-2">{item.data.pc}
+                      <button className=" z-10" onClick={ (e) => {
+                                                                  e.stopPropagation()    
+                                                                  deleteStock(item.symbol)}}><RiDeleteBin3Fill />
+                      </button>
+                    </td>
                     
                   </tr>)
           })}

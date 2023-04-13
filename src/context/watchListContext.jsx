@@ -4,6 +4,8 @@ export const WatchListContext = createContext()
 
 export const WatchListContextProvider = ({children}) => {
 
+  
+
   //StockList
   const [stock, setStock] = useState([])
   const [watchList, setWatchList] = useState(["MSFT","AMZN","AAPL","GOOG"])
@@ -13,16 +15,18 @@ export const WatchListContextProvider = ({children}) => {
   const[results, setResults]=useState([])
 
   //To add stocks to watchlist
-  const addStock = (add) => {
+  const addStock = (item) => {
     console.log("stock added")
-    if(watchList.indexOf(add)=== -1){
-      setWatchList([...watchList, add])
+    if(watchList.indexOf(item)=== -1){
+      setWatchList([...watchList, item])
     }
   }
   
   //To delete stock from watchlist
-  const deleteStock = () => {
-    console.log("stock deleted")
+  const deleteStock = (item) => {
+    console.log("stock deleted",watchList.indexOf(item))
+      setWatchList(watchList.toSpliced(watchList.indexOf(item),1))
+   
   }
     
   
