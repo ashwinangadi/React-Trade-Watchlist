@@ -1,14 +1,21 @@
-import { createContext,useState } from "react";
+import { createContext,useState, useEffect } from "react";
 
 export const WatchListContext = createContext()
 
 export const WatchListContextProvider = ({children}) => {
 
   
-
+  //Stock Data
+  const [stockData, setstockData] = useState([])
+  
   //StockList
   const [stock, setStock] = useState([])
-  const [watchList, setWatchList] = useState(["MSFT","AMZN","AAPL","GOOG"])
+  const [watchList, setWatchList] = useState(localStorage.getItem("watchList")?.split(",") || ["MSFT","AMZN","AAPL","GOOG"])
+
+  //To store in local storage
+  useEffect(()=>{
+    localStorage.setItem("watchList",watchList)
+  },[watchList])
 
   //AutoComplete
   const[search,setSearch]=useState("");
@@ -31,6 +38,6 @@ export const WatchListContextProvider = ({children}) => {
     
   
   
-  return <WatchListContext.Provider value={{watchList, stock, setStock, results, setResults, search, setSearch, addStock, deleteStock}}>{children}</WatchListContext.Provider>
+  return <WatchListContext.Provider value={{watchList, stock, setStock, results, setResults, search, setSearch, addStock, deleteStock, stockData, setstockData}}>{children}</WatchListContext.Provider>
 }
 

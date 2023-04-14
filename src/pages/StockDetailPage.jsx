@@ -3,6 +3,8 @@ import {useParams} from 'react-router-dom'
 import finnHub from '../apis/finnHub'
 import {StockChart} from '../components/StockChart'
 import {StockData} from '../components/StockData'
+import {Header} from '../components/Header'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 const formatData = (data) => {
   return data.t.map((el,index)=>{
@@ -75,17 +77,25 @@ const StockDetailPage = () => {
     fetchData()
   },[symbol])
   return(
-    <div>
+    <div className="container mx-auto my-5 bg-white border ">
+{/*       <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<StockOverviewPage />} />
+        </Routes>
+      </BrowserRouter> */}
+      <div><Header/></div>
       <div>
-        {chartData && (
-        <div>
-          <StockChart chartData={chartData} symbol={symbol} />
+        <div className="grid grid-col-3 justify-items-center ">
+          {chartData && (
+          <div>
+            <StockChart chartData={chartData} symbol={symbol} />
+          </div>
+          )}
         </div>
-        )}
-      </div>
-      <div>
-        <StockData symbol={symbol} />
-      </div>
+        <div >
+          <StockData symbol={symbol} />
+        </div>
+      </div> 
     </div>  
   )
 }
