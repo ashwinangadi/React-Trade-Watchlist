@@ -1,8 +1,8 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import StockDetailPage from './pages/StockDetailPage'
 import StockOverviewPage from './pages/StockOverviewPage'
-import {WatchListContextProvider} from './context/watchListContext'
+import { WatchListContextProvider } from './context/watchListContext'
 
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
             <Route path='/' element={<StockOverviewPage />} />
             <Route path='/detail/:symbol' element={<StockDetailPage />} />
           </Routes>
-        </BrowserRouter> 
+        </BrowserRouter>
       </WatchListContextProvider>
     </main>
   )
