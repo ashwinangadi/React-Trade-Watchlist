@@ -13,7 +13,7 @@ export const Header = () => {
         <div className="h-10 w-10 ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 duration-300 cursor-pointer shadow-md">
           <a className="text-blue-600" href={stockData.weburl}><img src={stockData.logo} /></a>
         </div>
-        <div className="text-gray-900 text-4xl ml-2" >
+        <div className="text-gray-900 text-xl md:text-4xl ml-2" >
           {stockData.name}
         </div>
       </div>

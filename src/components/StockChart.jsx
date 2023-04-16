@@ -2,7 +2,7 @@ import Chart from 'react-apexcharts'
 import { useState } from 'react'
 
 export const StockChart = ({ chartData, symbol }) => {
-  const [dateFormat, setDateFormat] = useState("1y")
+  const [dateFormat, setDateFormat] = useState("24h")
   const { day, week, year } = chartData
 
   const determineTimeFormat = () => {
@@ -26,7 +26,7 @@ export const StockChart = ({ chartData, symbol }) => {
       text: symbol,
       align: "center",
       style: {
-        fontSize: "35px",
+        fontSize: "20px",
         fontWeight: 700,
         color: "#6c757d"
       }
@@ -65,7 +65,7 @@ export const StockChart = ({ chartData, symbol }) => {
     }
   }
 
-  return <div className="m-5 mt-0 p-4 bg-white self-center w-[100vh] backdrop-blur-sm bg-white/20">
+  return <div className="m-5 mt-0 p-4 bg-white self-center md:w-[100vh] backdrop-blur-sm bg-white/20">
     <Chart options={options} series={series} type="area" width="100%" />
     <div className="flex justify-center">
       <button className={`${renderButtonSelect("24h")} rounded-l-lg font-medium ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 duration-300`} onClick={() => setDateFormat("24h")}>D</button>
